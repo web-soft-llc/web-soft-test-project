@@ -1,12 +1,12 @@
 export {};
 /**
 *@typedef {object} API
-*@property {introscpection} introscpection
+*@property {introspection} introspection
 *@property {counter} counter
 *@property {auth} auth
 */
 /**
-*@typedef {object} introscpection;
+*@typedef {object} introspection;
 *@property {function} getModules
 ***Возвращает схему API сервера.**
 *___

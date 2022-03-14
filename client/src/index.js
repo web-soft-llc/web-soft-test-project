@@ -5,23 +5,52 @@ document.addEventListener('DOMContentLoaded', async () => {
   //Подгружаем API, делать это обязательно, так как изначально в api - пустой объект.
   await loadApi({});
   //Обычные запросы.
-  try {
-    console.log(await api.auth.login({ username: 'danil', password: 'danilpassword1' }));
-    console.log(await api.auth.me());
-    //Подписка на события, также может возвращать значения. В данном случае значение не возвращается.
-    api.counter.getCounts({}, (error, data) => {
-      console.log(error);
-      console.log(data);
-    });
-    //Запросы отправляющиеся по http, а не ws сбрасывают соединения ws.
-    //Это нужно, чтобы обновить куки отправляемые по ws.
-    //login - отправляется по http, поэтому после него сбросится соединение сокета и в callback выше прилетит ошибка.
-    //Тут свобода действий, при ошибке либо подписаться заного, либо ничего не делать.
-    setTimeout(async () => {
-      console.log(await api.auth.login({ username: 'danil', password: 'danilpassword1' }));
-    }, 5000);
-  } catch (error) {
-    //В случае возврата ошибки сервером - она будет выброшена исключением.
-    console.log(error);
-  }
+  //console.log(await api.introscpection.getModules());
+  console.log(await api.introspection.getModules());
 });
+
+const example = {
+  moduleName: {
+    methodName: {
+      description: 'Описание метода',
+      public: true, // Можно ли получить доступ без аутентификации.
+      params: {
+        type: 'object',
+        description: 'Описание объекта params',
+        required: ['prop1'],
+        properties: {
+          prop1: {
+            description: 'Описание проп1',
+            type: 'string'
+          },
+          prop2: {
+            description: 'Описание проп2',
+            type: 'object',
+            required: [],
+            properties: {
+              prop2prop1: {
+                description: 'Описание проп2проп1',
+                type: 'string'
+              }
+            }
+          },
+          prop3: {
+            description: 'Описание проп3',
+            type: 'number'
+          },
+          prop4: {
+            description: 'Описание проп4',
+            type: 'array',
+            items: {
+              description: 'Описание элементов массива',
+              type: 'number|object|string'
+            }
+          }
+        }
+      },
+      result: {}, //Такой же как и парамс
+      emit: {}, //Такой же как и парамс
+      transport: 'http' //Необходимый транспорт, для тебя - ненужная инфа
+    }
+  }
+};

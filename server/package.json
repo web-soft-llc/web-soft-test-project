@@ -36,6 +36,6 @@
     "prettier": "2.5.1"
   },
   "dependencies": {
-    "web-soft-server": "^1.0.1"
+    "web-soft-server": "^1.0.2"
   }
 }
